@@ -1,0 +1,185 @@
+
+<div class="card-header border-0 pt-5">
+  <h3 class="card-title align-items-start flex-column">
+    <span class="card-label fw-bolder fs-3 mb-1">Listing</span>
+    <span class="text-muted mt-1 fw-bold fs-7">List all Buyers</span>
+  </h3>
+  <div class="card-toolbar">
+    <a href="#" class="btn btn-sm btn-light-primary ">
+      <span
+        [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
+        class="svg-icon svg-icon-3"
+      ></span>
+      New Member
+    </a>&nbsp;
+    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"  id="kt_filter_search" class="form-control form-control-solid form-select-sm w-150px ps-9" placeholder="Cari..." />
+  </div>
+</div>
+<!-- end::Header -->
+<!-- begin::Body -->
+<div class="card-body py-3">
+  <!-- begin::Table container -->
+  <div class="table-responsive">
+    <p-table
+      #dt
+      [value]="listData"
+      [lazy]="true"
+      (onLazyLoad)="reloadList($event)"
+      [paginator]="true"
+      [rows]="10"
+      sortMode="single"
+      [totalRecords]="totalRecords"
+      [loading]="loading"
+      responsiveLayout="stack"
+
+      dataKey="id"
+      [rowHover]="true"
+      styleClass="p-datatable-gridlines" responsiveLayout="scroll" class="table table-row-bordered table-row-dashed gy-4 align-middle fw-bold">
+      <!--    <p-table  #dt1  [value] ="datatable" [paginator]="true" dataKey="meetId" [rows]="10" [lazy]="true" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['meetId','staffname','roomDescp','date']" responsiveLayout="scroll" class="table table-row-bordered table-row-dashed gy-4 align-middle fw-bold">-->
+      <!--  <ng-template pTemplate="caption">-->
+      <!--    <p-toolbar>-->
+      <!--      <div class="p-toolbar-group-left flex flex-wrap">-->
+      <!--        &lt;!&ndash;            <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>&ndash;&gt;-->
+      <!--        &lt;!&ndash;            &nbsp;<button pButton label="Add New" class="p-button-outlined mb-2" icon="pi pi-plus" (click)="navigateToRegisterPage()"></button>&ndash;&gt;-->
+
+      <!--      </div>-->
+      <!--      <div class="p-toolbar-group-right">-->
+      <!--        <div class="p-input-icon-left mb-2">-->
+      <!--          <i class="pi pi-search"></i>-->
+      <!--          &lt;!&ndash;              <input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)" placeholder="Search Keyword" class="w-full"/>&ndash;&gt;-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--    </p-toolbar>-->
+      <!--  </ng-template>-->
+      <ng-template pTemplate="header">
+        <tr class="fw-bolder text-muted bg-light">
+          <th class="ps-4 min-w-325px rounded-start">Code</th>
+          <th class="min-w-125px">Description</th>
+          <th class="min-w-200px text-end rounded-end"> Action</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+        <tr (click)="navigateToOtherPage(rowData.code)">
+          <td>
+            <div class="d-flex align-items-center">
+
+              <div class="d-flex justify-content-start flex-column">
+                <a
+                  href="#"
+                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6"
+                >
+                  {{ rowData.companyname }}
+                </a>
+                <span class="text-muted fw-bold text-muted d-block fs-7">
+                  {{ rowData.code }}
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="text-muted fw-bold text-muted d-block fs-7">{{ rowData.coregister }}</span>
+          </td>
+          <td>
+            <a
+              href="#"
+              class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+            >
+              {{ rowData.refernoteno }}
+            </a>
+
+          </td>
+
+
+          <td class="text-end">
+            <a
+              href="#"
+              class="
+                btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                me-1
+              "
+            >
+              <span
+                [inlineSVG]="'./assets/media/icons/duotune/general/gen019.svg'"
+                class="svg-icon svg-icon-3"
+              ></span>
+            </a>
+            <a
+              href="#"
+              class="
+                btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                me-1
+              "
+            >
+              <span
+                [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
+                class="svg-icon svg-icon-3"
+              ></span>
+            </a>
+            <a
+              href="#"
+              class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+            >
+              <span
+                [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"
+                class="svg-icon svg-icon-3"
+              ></span>
+            </a>
+          </td>
+        </tr>
+        <!--<tr>
+          &lt;!&ndash;          <td>{{ rowData.staffname }}&ndash;&gt;
+          &lt;!&ndash;          </td>&ndash;&gt;
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="me-5 position-relative">
+                <div class="symbol symbol-35px symbol-circle">
+                  <img alt="Pic" src="{{ rowData.imageUrl }}" />
+                </div>
+              </div>
+              <div class="d-flex flex-column justify-content-center">
+                <a href="" class="fs-6 text-gray-800 text-hover-primary">{{ rowData.staffname }}</a>
+                <div class="fw-semibold text-gray-400">{{ rowData.meetId }}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex flex-column justify-content-center">
+              <a href="" class="fs-6 text-gray-800 text-hover-primary">{{ rowData.date | date:'dd-MM-yyyy' }}</a>
+              <div class="fw-semibold text-gray-400">{{ rowData.starttime }} - {{ rowData.endtime }}</div>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex flex-column justify-content-center">
+              <a href="" class="fs-6 text-gray-800 text-hover-primary">{{ rowData.roomDescp }}</a>
+              <div class="fw-semibold text-gray-400">{{ rowData.reason }}</div>
+            </div>
+          </td>
+          <td>
+                    <span [ngClass]="{'badge badge-light-warning fw-bold px-4 py-3': rowData.status === 'Pending',
+                                      'badge badge-light-danger fw-bold px-4 py-3': rowData.status === 'Rejected',
+                                      'badge badge-light-success fw-bold px-4 py-3': rowData.status === 'Approved',
+                                      'badge badge-light-info fw-bold px-4 py-3': rowData.status === 'In progress'}">{{ rowData.status }}</span>
+          </td>
+          <td class="text-end">
+            <a href="#" class="btn btn-light btn-sm">View</a>
+          </td>
+        </tr>-->
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8">No record found.</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="loadingbody" *ngIf="isLoading">
+        <tr>
+          <td colspan="8">Loading data. Please wait.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <!-- begin::Table -->
+
+    <!-- end::Table -->
+  </div>
+  <!-- end::Table container -->
+</div>

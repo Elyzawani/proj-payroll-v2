@@ -1,0 +1,169 @@
+<div class="card-header border-0 pt-5">
+  <h3 class="card-title align-items-start flex-column">
+    <span class="card-label fw-bolder fs-3 mb-1">Listing</span>
+    <span class="text-muted mt-1 fw-bold fs-7">List all Debit Note</span>
+  </h3>
+  <div class="card-toolbar">
+    <a href="#" class="btn btn-sm btn-light-primary ">
+      <span
+        [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
+        class="svg-icon svg-icon-3"
+      ></span>
+      New Member
+    </a>&nbsp;
+    <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"  id="kt_filter_search" class="form-control form-control-solid form-select-sm w-150px ps-9" placeholder="Cari..." />
+  </div>
+</div>
+<!-- end::Header -->
+<!-- begin::Body -->
+<div class="card-body py-3">
+  <!-- begin::Table container -->
+  <div class="table-responsive">
+    <p-table
+      #dt
+      [value]="listData"
+      [lazy]="true"
+      (onLazyLoad)="reloadList($event)"
+      [paginator]="true"
+      [rows]="10"
+      sortMode="single"
+      [totalRecords]="totalRecords"
+      [loading]="loading"
+      responsiveLayout="stack"
+      dataKey="id"
+      [rowHover]="true"
+      styleClass="p-datatable-gridlines"
+      responsiveLayout="scroll"
+      class="table table-row-bordered table-row-dashed gy-4 align-middle fw-bold"
+    >
+      <ng-template pTemplate="header">
+        <tr class="fw-bolder text-muted bg-light">
+          <th class="min-w-50px">
+            <p-checkbox
+              [(ngModel)]="selectAll"
+              (onChange)="selectAllRows($event)"
+            ></p-checkbox>
+          </th>
+          <th class="ps-4 min-w-325px rounded-start">Note No.</th>
+          <th class="min-w-125px">Date</th>
+          <th class="min-w-125px">Referral</th>
+          <th class="min-w-200px">Receiver</th>
+          <th class="min-w-200px">Amount</th>
+          <th class="min-w-150px">Status</th>
+          <th class="min-w-200px text-end rounded-end"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+        <tr (click)="navigateToOtherPage(rowData.noteno)">
+          <td>
+            <p-checkbox [(ngModel)]="rowData.selected"></p-checkbox>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-start flex-column">
+                <a
+                  href="#"
+                  class="text-dark fw-bolder text-hover-primary mb-1 fs-6"
+                >
+                  {{ rowData.noteno }}
+                </a>
+                <span class="text-muted fw-bold text-muted d-block fs-7">
+                  {{ rowData.preparename }}
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <a
+              href="#"
+              class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+            >
+              {{ rowData.notedate }}
+            </a>
+            <span class="text-muted fw-bold text-muted d-block fs-7">Paid</span>
+          </td>
+          <td>
+            <a
+              href="#"
+              class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+            >
+              {{ rowData.refernoteno }}
+            </a>
+          </td>
+          <td>
+            <a
+              href="#"
+              class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6"
+            >
+              {{ rowData.receivercode }}
+            </a>
+            <span class="text-muted fw-bold text-muted d-block fs-7">
+              {{ rowData.receivername }}
+            </span>
+          </td>
+          <td>
+            <a
+              href="#"
+              class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6 text-end "
+            >
+              {{ rowData.total | number }}
+            </a>
+          </td>
+          <td>
+            <span [ngClass]="getStatusClass(rowData)">
+              {{ getStatusLabel(rowData) }}
+            </span>
+          </td>
+          <td class="text-end">
+            <a
+              href="#"
+              class="
+                btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                me-1
+              "
+            >
+              <span
+                [inlineSVG]="'./assets/media/icons/duotune/general/gen019.svg'"
+                class="svg-icon svg-icon-3"
+              ></span>
+            </a>
+            <a
+              href="#"
+              class="
+                btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                me-1
+              "
+            >
+              <span
+                [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
+                class="svg-icon svg-icon-3"
+              ></span>
+            </a>
+            <a
+              href="#"
+              class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+            >
+              <span
+                [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"
+                class="svg-icon svg-icon-3"
+              ></span>
+            </a>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8">No record found.</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="loadingbody" *ngIf="isLoading">
+        <tr>
+          <td colspan="8">Loading data. Please wait.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <!-- begin::Table -->
+    <!-- end::Table -->
+  </div>
+  <!-- end::Table container -->
+</div>

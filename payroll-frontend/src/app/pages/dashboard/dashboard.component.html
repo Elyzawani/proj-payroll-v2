@@ -1,0 +1,100 @@
+<div class="row g-5 g-xl-8">
+  <div class="col-xl-3"  *ngFor="let data of bankDataList">
+    <app-bank-summary
+      svgIcon="./assets/media/icons/duotune/general/gen032.svg"
+      class="card bg-body hoverable card-xl-stretch mb-xl-8"
+      color="white"
+      iconColor="primary"
+      [title]="getFormattedTitle(data.monthval)"
+      [description]="data.bank"
+    ></app-bank-summary>
+  </div>
+</div>
+
+<!-- begin::Row -->
+<div class="row gy-5 g-xl-8">
+  <div class="col-xxl-6">
+    <app-chart-income
+      class="card card-xxl-c mb-5 mb-xl-8"
+      [chartColor]="'primary'"
+      [chartHeight]="'175px'"
+      *ngIf="netProfitData$ && revenueData$"
+      [data1]="netProfitData$"
+      [data2]="revenueData$"
+
+    >
+    </app-chart-income>
+  </div>
+  <div class="col-xxl-6">
+    <app-chart-expense
+      class="card card-xxl-c mb-5 mb-xl-8"
+      chartColor="primary"
+      chartHeight="175px"
+    ></app-chart-expense>
+<!--    <app-lists-widget5 class="card card-xxl-stretch"></app-lists-widget5>-->
+  </div>
+  <!--<div class="col-xxl-4">
+    <app-mixed-widget10
+      class="card card-xxl-stretch-50 mb-5 mb-xl-8"
+      chartColor="primary"
+      chartHeight="150px"
+    ></app-mixed-widget10>
+    <app-mixed-widget11
+      class="card card-xxl-stretch-50 mb-5 mb-xl-8"
+      chartColor="primary"
+      chartHeight="175px"
+    ></app-mixed-widget11>
+  </div>-->
+</div>
+<!-- end::Row -->
+
+<!-- begin::Row -->
+<div class="row gy-5 gx-xl-8">
+  <div class="col-xxl-12">
+    <app-chart-cashinout
+      class="card card-xl-stretch mb-xl-8"
+      *ngIf="netProfitData$ && revenueData$"
+      [data1]="netProfitData$"
+      [data2]="revenueData$">
+    </app-chart-cashinout>
+    <!--<app-lists-widget3
+      class="card card-xxl-stretch mb-xl-3"
+    ></app-lists-widget3>-->
+  </div>
+  <!--<div class="col-xl-8">
+    &lt;!&ndash;<app-tables-widget10
+      class="card card-xxl-stretch mb-5 mb-xl-8"
+    ></app-tables-widget10>&ndash;&gt;
+  </div>-->
+</div>
+<!-- end::Row -->
+
+
+
+
+<div class="row g-5 gx-xxl-8">
+  <div class="col-xxl-6">
+    <app-chart-invoice-ar
+      class="card card-xl-stretch mb-xl-8"
+      chartColor="primary"
+      chartHeight="150px"
+    ></app-chart-invoice-ar>
+    <!--<app-mixed-widget8
+      class="card card-xxl-stretch mb-xl-3"
+      chartColor="success"
+      chartHeight="150px"
+    ></app-mixed-widget8>-->
+  </div>
+  <div class="col-xxl-6">
+    <app-chart-invoice-ap
+      class="card card-xl-stretch mb-xl-8"
+      chartColor="danger"
+      chartHeight="150px"
+    ></app-chart-invoice-ap>
+    <!--<app-mixed-widget8
+      class="card card-xxl-stretch mb-xl-3"
+      chartColor="success"
+      chartHeight="150px"
+    ></app-mixed-widget8>-->
+  </div>
+</div>
